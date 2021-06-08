@@ -16,10 +16,13 @@ class Product
     @imported = imported
   end
 
-  def self.id(name)
-    PRODUCTS.index do |p|
+  def self.by_name(name)
+    index = PRODUCTS.index do |p|
       p.name == name
     end
+    return nil if index.nil?
+
+    PRODUCTS[index]
   end
 end
 

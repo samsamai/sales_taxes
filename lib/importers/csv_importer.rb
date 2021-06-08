@@ -11,10 +11,10 @@ class CSVImporter
     csv = CSV.new(csv_string, headers: :first_row, return_headers: false)
     lineitems = []
     csv.to_a.each do |row|
-      product_id = Product.id(row[1].strip)
-      next if product_id.nil?
+      product = Product.by_name(row[1].strip)
+      next if product.nil?
 
-      lineitems << Lineitem.new(row[0].to_i, product_id, PRODUCTS[product_id].unit_price)
+      lineitems << Lineitem.new(row[0].to_i, product)
     end
 
     lineitems

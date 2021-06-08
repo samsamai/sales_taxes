@@ -10,7 +10,7 @@ class TaxesCalculator
 
   def calculate(product)
     @taxes.sum(0) do |t|
-      @tax_rounder.round_up(t.percentage_rate(product))
+      @tax_rounder.round_up(t.percentage_rate(product)/100.0 * product.unit_price)
     end
   end
 end
