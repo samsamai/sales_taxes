@@ -6,13 +6,13 @@ require 'product'
 # Its percentage_rate method returns the percentage tax rate
 # according to the imported status of the product
 class ImportTax
-  def initialize(product)
-    @product = product
+  def initialize(rate = 5.0)
+    @rate = rate
   end
 
-  def percentage_rate
-    return 0.0 unless @product.imported
+  def percentage_rate(product)
+    return 0.0 unless product.imported
 
-    5.0
+    @rate
   end
 end

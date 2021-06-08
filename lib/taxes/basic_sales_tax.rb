@@ -9,13 +9,13 @@ require 'product'
 class BasicSalesTax
   EXEMPT_TYPES = %i[book food medical].freeze
 
-  def initialize(product)
-    @product = product
+  def initialize(rate = 10.0)
+    @rate = rate
   end
 
-  def percentage_rate
-    return 0.0 if EXEMPT_TYPES.include? @product.type
+  def percentage_rate(product)
+    return 0.0 if EXEMPT_TYPES.include? product.type
 
-    10.0
+    @rate
   end
 end

@@ -1,0 +1,13 @@
+AllCops:
+  NewCops: enable
+  Exclude:
+    - "Guardfile"
+
+Metrics/MethodLength:
+  Max: 15
+Metrics/BlockLength:
+  Exclude:
+    - "Rakefile"
+    - "Guardfile"
+    - "**/*.rake"
+    - "spec/**/*.rb"

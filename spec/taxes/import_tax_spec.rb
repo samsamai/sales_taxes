@@ -8,8 +8,8 @@ RSpec.describe ImportTax do
         @product = Product.new('test product', 1000, :other, true)
       end
       it 'returns 5.0' do
-        basic = ImportTax.new(@product)
-        expect(basic.percentage_rate).to eq 5.0
+        basic = ImportTax.new
+        expect(basic.percentage_rate(@product)).to eq 5.0
       end
     end
 
@@ -18,8 +18,8 @@ RSpec.describe ImportTax do
         @product = Product.new('test product', 1000, :other, false)
       end
       it 'returns 0.0' do
-        basic = ImportTax.new(@product)
-        expect(basic.percentage_rate).to eq 0.0
+        basic = ImportTax.new
+        expect(basic.percentage_rate(@product)).to eq 0.0
       end
     end
   end

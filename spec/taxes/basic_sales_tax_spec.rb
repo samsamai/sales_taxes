@@ -8,8 +8,8 @@ RSpec.describe BasicSalesTax do
         @product = Product.new('test product', 1000, :food, false)
       end
       it 'returns 0.0' do
-        basic = BasicSalesTax.new(@product)
-        expect(basic.percentage_rate).to eq 0.0
+        basic = BasicSalesTax.new
+        expect(basic.percentage_rate(@product)).to eq 0.0
       end
     end
 
@@ -18,8 +18,8 @@ RSpec.describe BasicSalesTax do
         @product = Product.new('test product', 1000, :other, false)
       end
       it 'returns 10.0' do
-        basic = BasicSalesTax.new(@product)
-        expect(basic.percentage_rate).to eq 10.0
+        basic = BasicSalesTax.new
+        expect(basic.percentage_rate(@product)).to eq 10.0
       end
     end
   end
