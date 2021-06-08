@@ -67,7 +67,7 @@ RSpec.describe CSVImporter do
   describe '#quantity=' do
     it 'changes the quantity and recalculates totals' do
       product = Product.new('book', 1249, :book, true)
-      lineitem = Lineitem.new(1, product)
+      lineitem = Lineitem.new(1, product, 12.49)
       expect(lineitem).to receive(:recalculate_totals)
 
       lineitem.quantity = 2
@@ -78,7 +78,7 @@ RSpec.describe CSVImporter do
     describe '#recalculate_totals' do
       it 'sets total_taxes and total_price_inc_taxes' do
         product = Product.new('book', 1249, :book, true)
-        lineitem = Lineitem.new(1, product)
+        lineitem = Lineitem.new(1, product, 12.49)
         expect(lineitem.total_taxes).to eq 65
         expect(lineitem.total_price_inc_taxes).to eq 1314
 

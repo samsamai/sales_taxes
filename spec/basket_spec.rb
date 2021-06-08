@@ -18,7 +18,7 @@ RSpec.describe Basket do
       expect(basket.lineitems.count).to eq 0
 
       product = Product.new('imported luxury item', 1_000_000, :other, true)
-      lineitem = Lineitem.new(2, product)
+      lineitem = Lineitem.new(2, product, 10_000.0)
       basket.add_lineitem(lineitem)
 
       expect(basket.lineitems.count).to eq 1
@@ -31,11 +31,11 @@ RSpec.describe Basket do
 
       expect(basket).to receive(:recalculate).twice.and_call_original
       product1 = Product.new('imported luxury item', 1_000_000, :other, true)
-      lineitem1 = Lineitem.new(1, product1)
+      lineitem1 = Lineitem.new(1, product1, 10_000.0)
       basket.add_lineitem(lineitem1)
 
       product2 = Product.new('non-exempt item', 1_000_000, :other, false)
-      lineitem2 = Lineitem.new(1, product2)
+      lineitem2 = Lineitem.new(1, product2, 10_000.0)
       basket.add_lineitem(lineitem2)
 
       expect(basket.total_taxes).to eq 250_000

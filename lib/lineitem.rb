@@ -11,10 +11,10 @@ require 'taxes/import_tax'
 class Lineitem
   attr_reader :quantity, :product, :unit_price, :unit_tax, :total_price_inc_taxes, :total_taxes
 
-  def initialize(quantity, product)
+  def initialize(quantity, product, unit_price)
     @quantity = quantity
     @product = product
-    @unit_price = product.unit_price
+    @unit_price = unit_price * 100
     @total_price_inc_taxes = nil
     @total_taxes = nil
 

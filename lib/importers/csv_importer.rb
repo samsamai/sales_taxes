@@ -14,7 +14,7 @@ class CSVImporter
       product = Product.by_name(row[1].strip)
       next if product.nil?
 
-      lineitems << Lineitem.new(row[0].to_i, product)
+      lineitems << Lineitem.new(row[0].to_i, product, row[2].to_f)
     end
 
     lineitems
