@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'taxes/import_tax'
 require 'product'
 

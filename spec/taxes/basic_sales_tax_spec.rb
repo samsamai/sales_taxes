@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'taxes/basic_sales_tax'
 require 'product'
 
