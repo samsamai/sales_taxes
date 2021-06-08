@@ -15,7 +15,6 @@ RSpec.describe CSVImporter do
         1, book, 12.49
       CSV
       actual = @importer.import(csv_data)
-      product = Product.by_name('book')
 
       expect(actual.count).to eq 1
       li = actual[0]
