@@ -53,7 +53,7 @@ RSpec.describe CSVImporter do
       expect(actual.count).to eq 0
     end
 
-    fit 'ignores the header' do
+    it 'ignores the header' do
       csv_data = <<~CSV
         Quantity, book, Price
         1, book, 12.49
