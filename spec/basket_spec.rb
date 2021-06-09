@@ -81,7 +81,7 @@ RSpec.describe Basket do
     end
   end
 
-  describe 'export' do
+  describe '#export' do
     before(:context) do
       @importer = CSVImporter.new
       @exporter = TxtExporter.new
@@ -98,8 +98,88 @@ RSpec.describe Basket do
       lineitem2 = Lineitem.new(1, product2, 10.0)
       basket.add_lineitem(lineitem2)
 
-      expect(basket.exporter).to receive(:export).with(basket).once
-      basket.export
+      expect(basket.exporter).to receive(:export).with(basket).once.and_call_original
+
+      expect { basket.export }.to output.to_stdout
+    end
+
+    it 'does not output anything with empty lineitems list' do
+      basket = Basket.new(@importer, @exporter)
+      expect { basket.export }.not_to output.to_stdout
+    end
+  end
+
+  describe 'basket integration test (input -> output)' do
+    before(:context) do
+      importer = CSVImporter.new
+      exporter = TxtExporter.new
+      @basket = Basket.new(importer, exporter)
+    end
+
+    it 'is correct for Input 1 test data' do
+      input_data = <<~CSV
+        Quantity, Product, Price
+        1, book, 12.49
+        1, music cd, 14.99
+        1, chocolate bar, 0.85
+      CSV
+
+      @basket.import(input_data)
+
+      expected_output = <<~OUTPUT
+        1, book, 12.49
+        1, music cd, 16.49
+        1, chocolate bar, 0.85
+
+        Sales Taxes: 1.50
+        Total: 29.83
+      OUTPUT
+
+      expect { @basket.export }.to output(expected_output).to_stdout
+    end
+
+    it 'is correct for Input 2 test data' do
+      input_data = <<~CSV
+        Quantity, Product, Price
+        1, imported box of chocolates, 10.00
+        1, imported bottle of perfume, 47.50
+      CSV
+
+      @basket.import(input_data)
+
+      expected_output = <<~OUTPUT
+        1, imported box of chocolates, 10.50
+        1, imported bottle of perfume, 54.65
+
+        Sales Taxes: 7.65
+        Total: 65.15
+      OUTPUT
+
+      expect { @basket.export }.to output(expected_output).to_stdout
+    end
+
+    it 'is correct for Input 2 test data' do
+      input_data = <<~CSV
+        Quantity, Product, Price
+        1, imported bottle of perfume, 27.99
+        1, bottle of perfume, 18.99
+        1, packet of headache pills, 9.75
+        1, imported box of chocolates, 11.25
+      CSV
+
+      @basket.import(input_data)
+
+      expected_output = <<~OUTPUT
+        1, imported bottle of perfume, 32.19
+        1, bottle of perfume, 20.89
+        1, packet of headache pills, 9.75
+        1, imported box of chocolates, 11.85
+
+        Sales Taxes: 6.70
+        Total: 74.68
+      OUTPUT
+
+      expect { @basket.export }.to output(expected_output).to_stdout
     end
   end
 end

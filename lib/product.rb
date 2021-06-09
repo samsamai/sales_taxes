@@ -29,5 +29,9 @@ end
 PRODUCTS = [
   Product.new('book', 1249, :book, false),
   Product.new('music cd', 1499, :other, false),
-  Product.new('chocolate bar', 85, :food, false)
+  Product.new('chocolate bar', 85, :food, false),
+  Product.new('imported box of chocolates', 1000, :food, true),
+  Product.new('imported bottle of perfume', 4750, :other, true),
+  Product.new('bottle of perfume', 1899, :other, false),
+  Product.new('packet of headache pills', 975, :medical, false)
 ].freeze

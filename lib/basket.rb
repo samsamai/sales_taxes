@@ -33,6 +33,8 @@ class Basket
   end
 
   def export
-    @exporter.export(self)
+    return if @lineitems.empty?
+
+    $stdout.puts @exporter.export(self)
   end
 end
