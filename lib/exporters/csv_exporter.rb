@@ -3,7 +3,7 @@
 require 'csv'
 require 'utils'
 
-# TxtExporter is responsible printing out the receipt to stdout
+# CSVExporter is responsible formating the receipt into CSV format for outputing
 class CSVExporter
   def export(basket)
     CSV.generate(headers: true) do |csv|

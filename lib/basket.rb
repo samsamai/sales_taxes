@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-# Basket class is responsible keeping track of the lineitems
-# and recalculating totals
+# Basket class is responsible keeping track of the lineitems,
+# recalculating its totals, setting off imports and exports
 class Basket
   attr_reader :lineitems, :total_inc_taxes, :total_taxes, :importer, :exporter
 

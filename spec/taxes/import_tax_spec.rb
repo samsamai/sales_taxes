@@ -15,7 +15,7 @@ RSpec.describe ImportTax do
       end
     end
 
-    describe 'for non-imported produt' do
+    describe 'for a non-imported product' do
       before(:context) do
         @product = Product.new('test product', 1000, :other, false)
       end

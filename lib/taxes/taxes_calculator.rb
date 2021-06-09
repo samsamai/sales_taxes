@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# this class is reponsible for summing all the taxes
+# TaxesCalculator class is reponsible for summing all the taxes
 # applicable to the give product
 class TaxesCalculator
   def initialize(taxes, tax_rounder)

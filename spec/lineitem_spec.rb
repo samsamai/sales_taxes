@@ -18,13 +18,13 @@ RSpec.describe Lineitem do
       expect(lineitem.unit_tax).to eq 150_000
     end
 
-    it 'it sets total_taxes ' do
+    it 'it sets total_taxes' do
       product = Product.new('imported luxury item', 1_000_000, :other, true)
       lineitem = Lineitem.new(2, product, 10_000.0)
       expect(lineitem.total_taxes).to eq 300_000
     end
 
-    it 'it sets total_price_inc_taxes ' do
+    it 'it sets total_price_inc_taxes' do
       product = Product.new('imported luxury item', 1_000_000, :other, true)
       lineitem = Lineitem.new(2, product, 10_000.0)
       expect(lineitem.total_price_inc_taxes).to eq 2_300_000

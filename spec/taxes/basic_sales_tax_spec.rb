@@ -15,7 +15,7 @@ RSpec.describe BasicSalesTax do
       end
     end
 
-    describe 'for and non-exempt produt' do
+    describe 'for a non-exempt product' do
       before(:context) do
         @product = Product.new('test product', 1000, :other, false)
       end

@@ -7,13 +7,13 @@ require 'product'
 require 'lineitem'
 
 RSpec.describe TxtExporter do
-  describe 'export' do
+  describe '#export' do
     before(:context) do
       @importer = CSVImporter.new
       @exporter = TxtExporter.new
     end
 
-    it 'prints out receipt' do
+    it 'formats receipt' do
       basket = Basket.new(@importer, @exporter)
 
       product1 = Product.new('imported luxury item', 5000, :other, true)

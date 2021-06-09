@@ -7,7 +7,7 @@ require 'taxes/basic_sales_tax'
 require 'taxes/import_tax'
 
 # Lineitem class is reposible for keeping the details
-# of a lineitem
+# of a lineitem and recalculating the its totals
 class Lineitem
   attr_reader :quantity, :product, :unit_price, :unit_tax, :total_price_inc_taxes, :total_taxes
 

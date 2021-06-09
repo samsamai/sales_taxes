@@ -2,7 +2,7 @@
 
 require 'utils'
 
-# TxtExporter is responsible printing out the receipt to stdout
+# TxtExporter is responsible for formating the receipt into txt
 class TxtExporter
   def export(basket)
     output = basket.lineitems.map do |li|
