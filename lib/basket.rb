@@ -3,7 +3,7 @@
 # Basket class is responsible keeping track of the lineitems
 # and recalculating totals
 class Basket
-  attr_reader :lineitems, :total_inc_taxes, :total_taxes
+  attr_reader :lineitems, :total_inc_taxes, :total_taxes, :importer, :exporter
 
   def initialize(importer, exporter)
     @importer = importer
@@ -30,5 +30,9 @@ class Basket
   def import(csv_data)
     @lineitems = @importer.import(csv_data)
     recalculate
+  end
+
+  def export
+    @exporter.export(self)
   end
 end
