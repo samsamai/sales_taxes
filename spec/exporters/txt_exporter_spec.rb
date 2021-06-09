@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'importers/csv_importer'
 require 'exporters/txt_exporter'
 require 'basket'
 require 'product'
@@ -8,11 +9,12 @@ require 'lineitem'
 RSpec.describe TxtExporter do
   describe 'export' do
     before(:context) do
+      @importer = CSVImporter.new
       @exporter = TxtExporter.new
     end
 
     it 'prints out receipt' do
-      basket = Basket.new
+      basket = Basket.new(@importer, @exporter)
 
       product1 = Product.new('imported luxury item', 5000, :other, true)
       lineitem1 = Lineitem.new(1, product1, 50.0)

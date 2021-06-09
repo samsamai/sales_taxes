@@ -18,28 +18,28 @@ RSpec.describe TaxesCalculator do
       product = Product.new('imported luxury item', 1000, :other, true)
 
       taxes_calculator = TaxesCalculator.new([@basic_tax, @import], @rounder)
-      expect(taxes_calculator.calculate(product)).to eq 150
+      expect(taxes_calculator.calculate(product, 1000)).to eq 150
     end
 
     it 'return 0.0 for non-imported food item' do
       product = Product.new('local food item', 1000, :food, false)
 
       taxes_calculator = TaxesCalculator.new([@basic_tax, @import], @rounder)
-      expect(taxes_calculator.calculate(product)).to eq 0.0
+      expect(taxes_calculator.calculate(product, 1000)).to eq 0.0
     end
 
     it 'return 5.0 for imported food item' do
       product = Product.new('local food item', 1000, :food, true)
 
       taxes_calculator = TaxesCalculator.new([@basic_tax, @import], @rounder)
-      expect(taxes_calculator.calculate(product)).to eq 50
+      expect(taxes_calculator.calculate(product, 1000)).to eq 50
     end
 
     it 'return 10.0 for non-imported non-exempt item' do
       product = Product.new('local food item', 1000, :other, false)
 
       taxes_calculator = TaxesCalculator.new([@basic_tax, @import], @rounder)
-      expect(taxes_calculator.calculate(product)).to eq 100
+      expect(taxes_calculator.calculate(product, 1000)).to eq 100
     end
   end
 end

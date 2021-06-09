@@ -23,7 +23,7 @@ class Lineitem
       Rounder.new(5)
     )
 
-    @unit_tax = taxes_calculator.calculate(@product)
+    @unit_tax = taxes_calculator.calculate(@product, @unit_price)
     recalculate_totals
   end
 

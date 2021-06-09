@@ -5,7 +5,9 @@
 class Basket
   attr_reader :lineitems, :total_inc_taxes, :total_taxes
 
-  def initialize
+  def initialize(importer, exporter)
+    @importer = importer
+    @exporter = exporter
     @lineitems = []
     @total_inc_taxes = nil
     @total_taxes = nil
@@ -23,5 +25,10 @@ class Basket
       @total_taxes += li.total_taxes
       @total_inc_taxes += li.total_price_inc_taxes
     end
+  end
+
+  def import(csv_data)
+    @lineitems = @importer.import(csv_data)
+    recalculate
   end
 end

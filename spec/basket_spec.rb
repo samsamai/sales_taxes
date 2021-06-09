@@ -3,18 +3,25 @@
 require 'basket'
 require 'product'
 require 'lineitem'
+require 'importers/csv_importer'
+require 'exporters/txt_exporter'
 
 RSpec.describe Basket do
+  before(:context) do
+    @importer = CSVImporter.new
+    @exporter = TxtExporter.new
+  end
+
   describe '#initialize' do
     it 'creates new Basket with no lineitems' do
-      basket = Basket.new
+      basket = Basket.new(@importer, @exporter)
       expect(basket.lineitems).to eq []
     end
   end
 
   describe '#add_lineitem' do
     it 'adds a lineitem to the basket' do
-      basket = Basket.new
+      basket = Basket.new(@importer, @exporter)
       expect(basket.lineitems.count).to eq 0
 
       product = Product.new('imported luxury item', 1_000_000, :other, true)
@@ -27,7 +34,7 @@ RSpec.describe Basket do
 
   describe '#recalculate' do
     it 'sums total_taxes and total_inc_taxes for all its lineitems' do
-      basket = Basket.new
+      basket = Basket.new(@importer, @exporter)
 
       expect(basket).to receive(:recalculate).twice.and_call_original
       product1 = Product.new('imported luxury item', 1_000_000, :other, true)
@@ -40,6 +47,37 @@ RSpec.describe Basket do
 
       expect(basket.total_taxes).to eq 250_000
       expect(basket.total_inc_taxes).to eq 2_250_000
+    end
+  end
+
+  describe '#import' do
+    it 'imports lines items as csv' do
+      csv_data = <<~CSV
+        Quantity, Product, Price
+        1, book, 12.49
+        10, music cd, 14.99
+      CSV
+
+      basket = Basket.new(@importer, @exporter)
+      expect(basket.lineitems.count).to eq 0
+
+      basket.import(csv_data)
+      expect(basket.lineitems.count).to eq 2
+    end
+
+    it 'recalculates totals after import' do
+      csv_data = <<~CSV
+        Quantity, Product, Price
+        1, music cd, 10.00
+      CSV
+
+      basket = Basket.new(@importer, @exporter)
+      expect(basket.total_inc_taxes).to eq nil
+      expect(basket.total_taxes).to eq nil
+
+      basket.import(csv_data)
+      expect(basket.total_inc_taxes).to eq 1100
+      expect(basket.total_taxes).to eq 100
     end
   end
 end
